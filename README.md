@@ -1,5 +1,6 @@
 # Elmer Parallel Demo input files (elmer_parallel_demo)
 Elmer demo to do parallel runs (input files for YouTube video).
+Mind, that the numerical setup is incorrect inthe sense, that the Navier-Stokes equation is not resolving the non-linearity of the advection term. You can change that (but needs longer runtimes) by setting the `Nonlinear System Max Iterations` to a value large enough for the system to converge on that level (e.g., 50). All input files are provided without any warranty.
 
 ## Prerequisites
 
@@ -28,3 +29,5 @@ To run with OMP mulit-threading instead (on serial mesh)
 ```bash
 $ OMP_NUM_THREAD=N ElmerSolver elmer_flow_gcr.sif
 ```
+## Further things to try
+`elmer_flow_mumps.sif" contains a setup solving with MUMPS (needs to be included in Elmer sintallation), a parallel direct solver. `elmer_flow_BPC.sif` is a setup that utilizes the block pre-conditioner (BPC) for solution in parallel, using GCR as the outer iteration solver. If you have a special Elmer version including AMGX compiled (naturally, needs a NVIDIA GPU in your computer), you may try `elmer_flow_amgx.sif`
