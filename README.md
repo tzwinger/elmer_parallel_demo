@@ -1,5 +1,12 @@
-# elmer_parallel_demo
+# Elmer Parallel Demo input files (elmer_parallel_demo)
 Elmer demo to do parallel runs (input files for YouTube video).
+
+## Prerequisites
+
+You need a big enough computer (min 6GB) with Gmsh and Elmer installed, the latter with both, OpenMP and MPI enabled
+Recommended: ParaView for post processing
+
+## Instructions
 
 First create the serial mesh-file using Gmsh and ElmerGrid
 ```bash
