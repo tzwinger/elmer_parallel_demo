@@ -28,7 +28,7 @@ To run the previous case in parallel using MPI, launch with
 ```bash
 $ mpirun -np N ElmerSolver elmer_flow_gcr.sif
 ```
-To run with OMP mulit-threading instead (on serial mesh)
+To run with OMP multi-threading instead (on serial mesh)
 ```bash
 $ OMP_NUM_THREAD=N ElmerSolver elmer_flow_gcr.sif
 ```
