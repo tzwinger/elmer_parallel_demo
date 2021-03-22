@@ -30,4 +30,4 @@ To run with OMP mulit-threading instead (on serial mesh)
 $ OMP_NUM_THREAD=N ElmerSolver elmer_flow_gcr.sif
 ```
 ## Further things to try
-`elmer_flow_mumps.sif" contains a setup solving with MUMPS (needs to be included in Elmer sintallation), a parallel direct solver. `elmer_flow_BPC.sif` is a setup that utilizes the block pre-conditioner (BPC) for solution in parallel, using GCR as the outer iteration solver. If you have a special Elmer version including AMGX compiled (naturally, needs a NVIDIA GPU in your computer), you may try `elmer_flow_amgx.sif`
+`elmer_flow_mumps.sif` contains a setup solving with MUMPS (needs to be included in Elmer sintallation), a parallel direct solver. `elmer_flow_BPC.sif` is a setup that utilizes the block pre-conditioner (BPC) for solution in parallel, using GCR as the outer iteration solver. If you have a special Elmer version including AMGX compiled (naturally, needs a NVIDIA GPU in your computer), you may try `elmer_flow_amgx.sif`
