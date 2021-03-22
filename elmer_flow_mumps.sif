@@ -1,0 +1,137 @@
+!---LUA BEGIN
+! maxv=0.2
+! L=5.0
+!---LUA END
+
+Header
+  CHECK KEYWORDS Warn
+  Mesh DB "." "elmer_flow"
+  Include Path ""
+  Results Directory ""
+End
+
+Simulation
+  Max Output Level = 5
+  Coordinate System = Cartesian
+  Coordinate Mapping(3) = 1 2 3
+  Simulation Type = Transient
+  Steady State Max Iterations = 1
+  Output Intervals = 1
+  Timestepping Method = BDF
+  BDF Order = 1
+  Timestep intervals = 20
+  Timestep Sizes = 1.0
+  Post File = flow_mumps.vtu
+End
+
+Constants
+  Gravity(4) = 0 -1 0 9.82
+  Stefan Boltzmann = 5.67e-08
+  Permittivity of Vacuum = 8.8542e-12
+  Boltzmann Constant = 1.3807e-23
+  Unit Charge = 1.602e-19
+End
+
+Body 1
+  Target Bodies(1) = 1
+  Name = "Body 1"
+  Equation = 1
+  Material = 1
+  Initial Condition = 1
+End
+
+
+
+Solver 1
+  Equation = "Stokes-Vec"
+  Procedure = "IncompressibleNSVec" "IncompressibleNSSolver"
+  Div-Curl Discretization = Logical False
+
+  Optimize Bandwidth = Logical True
+  Stabilization Method = String Stabilized
+
+  !Non-linear iteration settings:
+  !------------------------------ 
+  Nonlinear System Max Iterations = 1
+  Nonlinear System Convergence Tolerance  = 1.0e-5
+  Nonlinear System Newton After Iterations = 5
+  Nonlinear System Newton After Tolerance = 1.0e-1
+  ! Nonlinear System Relaxation Factor = 1.00
+  ! Nonlinear System Reset Newton = Logical True
+
+  ! parallel direct method
+  include mumps.sif
+
+  ! Convergence on timelevel (not required here)
+  !---------------------------------------------
+  Steady State Convergence Tolerance = Real 1.0e-3
+
+  !Relative Integration Order = -1
+  Number of Integration Points = Integer 21 ! 21, 28, 44, 64, ...
+
+! Some timing info
+  Boundary Assembly Timing = Logical True
+  Bulk Assembly Timing = Logical True
+  Solver Timing = Logical True
+  Linear System Timing = Logical True
+End
+
+Equation 1
+  Name = "Equation 1"
+  Convection = Computed
+  Active Solvers(1) = 1
+End
+
+Material 1
+  Name = "Oil, olive (25 C)"
+  Viscosity = 0.081
+  Heat expansion Coefficient = 0.72e-3
+  Heat Conductivity = 0.17
+  Relative Permittivity = 3.1
+  Sound speed = 1430.0
+  Heat Capacity = 1970.0
+  Density = 915.0
+End
+
+Body Force 1
+  Name = "BodyForce 1"
+  !Flow BodyForce 1 = 0.0
+End
+
+Initial Condition 1
+  Pressure = 0.0
+  Velocity 1 = Variable Coordinate 2, Coordinate 3
+   Real LUA "0.1*maxv*8*(tx[1])*(1-tx[1])*(tx[0])*(1-tx[0])"
+  Velocity 2 = 0.0
+  Velocity 3 = 0.0
+End
+
+Boundary Condition 1
+  Target Boundaries(1) = 1 
+  Name = "inflow"
+  Velocity 2 = 0.0
+  Velocity 3 = 0.0
+  Velocity 1 = Variable Time, Coordinate 2, Coordinate 3
+    Real LUA "((0.9*maxv*(math.sin(0.5*math.pi*tx[0]/20.0))^2.0) + 0.1*maxv)*8*(tx[1])*(1-tx[1])*(tx[2])*(1-tx[2])"
+End
+
+Boundary Condition 2
+  Target Boundaries(1) = 2 
+  Name = "outflow"
+  Pressure = 0.0
+End
+
+Boundary Condition 3
+  Target Boundaries(4) = 3 4 5 6 
+  Name = "no slip channel walls"
+  Velocity 1 = 0.0
+  Velocity 2 = 0.0
+  Velocity 3 = 0.0
+End
+
+Boundary Condition 4
+  Target Boundaries(5) = 7 8 9 10 11
+  Name = "Slip Letters"
+  Normal-Tangential Velocity = True
+  Velocity 1 = 0.0
+End
