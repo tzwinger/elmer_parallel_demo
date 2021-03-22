@@ -11,7 +11,7 @@ Recommended: ParaView for post processing
 
 First create the serial mesh-file using Gmsh and ElmerGrid
 ```bash
-$ gmsh -3 elmer_flow.geo && ElmerGrid 14 2 elemr_flow.msh -autoclean
+$ gmsh -3 elmer_flow.geo && ElmerGrid 14 2 elmer_flow.msh -autoclean
 ```
 Then try running the serial run (NB: run needs about 6 GB RAM)
 ```bash
