@@ -1,7 +1,7 @@
 
 # Elmer Parallel Demo input files (elmer_parallel_demo)
 Elmer demo to do parallel runs (input files for [YouTube video](https://www.youtube.com/watch?v=84K6OxEKEjQ)).
-Mind, that the numerical setup is incorrect inthe sense, that the Navier-Stokes equation is not resolving the non-linearity of the advection term. You can change that (but needs longer runtimes) by setting the `Nonlinear System Max Iterations` to a value large enough for the system to converge on that level (e.g., 50). All input files are provided without any warranty.
+Mind, that the numerical setup is incorrect in the sense that the Navier-Stokes equation is not resolving the non-linearity of the advection term. You can change that (but needs longer runtimes) by setting the `Nonlinear System Max Iterations` to a value large enough for the system to converge on that level (e.g., 50). All input files are provided without any warranty.
 
 ![elmer_flow](https://user-images.githubusercontent.com/6701631/112022294-d7cf8e80-8b3a-11eb-84ec-9a35f89399e5.gif)
 
