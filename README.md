@@ -24,11 +24,11 @@ In order to partition the mesh into `N`-partitions (replace `N` with the number 
 ```bash
 $ ElmerGrid 2 2 elmer_flow -partdual -metiskway N
 ```
-To run the previous case in parallel using MPI, launch with
+To run the previous case in parallel using MPI, launch with (replace `N` with the number of available CPU cores)
 ```bash
 $ mpirun -np N ElmerSolver elmer_flow_gcr.sif
 ```
-To run with OMP multi-threading instead (on serial mesh)
+To run with OMP multi-threading instead on serial mesh (replace `N` with the number of available CPU cores)
 ```bash
 $ OMP_NUM_THREAD=N ElmerSolver elmer_flow_gcr.sif
 ```
